@@ -1,322 +1,264 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitud de Matrimonio - Iglesia de la Alameda</title>
+    <title>Solicitud de Ceremonia de Casamiento - Iglesia de la Alameda</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Roboto Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c5282;
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-        .form-title {
-            color: #2c5282;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        .person-section {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-        .person-title {
-            margin-top: 0;
-            color: #4a5568;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        .form-section {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .conditions {
-            background-color: #f0f4f8;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 20px 0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-        .highlight {
-            background-color: #fffde7;
-            padding: 10px;
-            border-left: 3px solid #fbc02d;
-            margin: 15px 0;
-        }
-        .time-warning {
-            color: #dc3545;
-            font-weight: bold;
-            margin-top: 5px;
-            display: none;
-        }
-        .validation-message {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 3px;
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .success-message {
-            display: none;
-            color: #28a745;
-            text-align: center;
-            padding: 15px;
-            margin: 20px 0;
-            border: 1px solid #28a745;
-            border-radius: 4px;
-            background-color: #d4edda;
-        }
-        .error-message {
-            display: none;
-            color: #dc3545;
-            text-align: center;
-            padding: 15px;
-            margin: 20px 0;
-            border: 1px solid #dc3545;
-            border-radius: 4px;
-            background-color: #f8d7da;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Solicitud de Matrimonio</h1>
         <form id="matrimonioForm" novalidate>
             <div class="form-section">
                 <h2 class="form-title">Información Personal</h2>
-                
+
                 <!-- Información del Solicitante -->
                 <div class="person-section">
                     <h3 class="person-title">Datos del Solicitante</h3>
-                    
+
                     <div class="mb-3">
                         <label for="nombreApellido1" class="form-label">Apellido y Nombre:</label>
                         <input type="text" class="form-control" id="nombreApellido1" name="nombreApellido1" required>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="fechaNacimiento1" class="form-label">Fecha de Nacimiento:</label>
-                            <input type="date" class="form-control" id="fechaNacimiento1" name="fechaNacimiento1" required onchange="calcularEdad(1)">
+                            <input type="date" class="form-control" id="fechaNacimiento1" name="fechaNacimiento1"
+                                required onchange="calcularEdad(1)">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="edad1" class="form-label">Edad:</label>
                             <input type="number" class="form-control" id="edad1" name="edad1" readonly required>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="dni1" class="form-label">DNI:</label>
-                        <input type="text" class="form-control" id="dni1" name="dni1" required pattern="[0-9]{7,8}" title="Por favor ingrese un DNI válido (7-8 dígitos numéricos)">
+                        <input type="text" class="form-control" id="dni1" name="dni1" required pattern="[0-9]{7,8}"
+                            title="Por favor ingrese un DNI válido (7-8 dígitos numéricos)">
                         <div class="validation-message">Ingrese sólo números, sin puntos ni espacios</div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="telefono1" class="form-label">Teléfono:</label>
-                            <input type="tel" class="form-control" id="telefono1" name="telefono1" required pattern="[0-9]{10,15}" title="Por favor ingrese un número telefónico válido" placeholder="Código de área + número (solo números)">
-                            <div class="validation-message">Ingrese el código de área y número sin espacios, guiones ni paréntesis</div>
+                            <input type="tel" class="form-control" id="telefono1" name="telefono1" required
+                                pattern="[0-9]{10,15}" title="Por favor ingrese un número telefónico válido"
+                                placeholder="Código de área + número (solo números)">
+                            <div class="validation-message">Ingrese el código de área y número sin espacios, guiones ni
+                                paréntesis</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email1" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email1" name="email1" required placeholder="nombre@ejemplo.com">
-                            <div class="validation-message">Por favor verifique que el email sea correcto, es nuestra vía de contacto</div>
+                            <input type="email" class="form-control" id="email1" name="email1" required
+                                placeholder="nombre@ejemplo.com">
+                            <div class="validation-message">Por favor verifique que el email sea correcto, es nuestra
+                                vía de contacto</div>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="ocupacion1" class="form-label">Ocupación:</label>
                         <input type="text" class="form-control" id="ocupacion1" name="ocupacion1" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">¿Asiste a la Iglesia de la Alameda?</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="asisteSi1" name="asiste1" value="Si" required onchange="toggleIglesia(1)">
+                            <input class="form-check-input" type="radio" id="asisteSi1" name="asiste1" value="Si"
+                                required onchange="toggleIglesia(1)">
                             <label class="form-check-label" for="asisteSi1">Sí</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="asisteNo1" name="asiste1" value="No" required onchange="toggleIglesia(1)">
+                            <input class="form-check-input" type="radio" id="asisteNo1" name="asiste1" value="No"
+                                required onchange="toggleIglesia(1)">
                             <label class="form-check-label" for="asisteNo1">No</label>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3" id="otraIglesiaGroup1" style="display: none;">
                         <label for="otraIglesia1" class="form-label">¿A qué iglesia asiste?</label>
                         <input type="text" class="form-control" id="otraIglesia1" name="otraIglesia1">
                     </div>
                 </div>
-                
+
                 <!-- Información de la Pareja -->
                 <div class="person-section">
                     <h3 class="person-title">Datos de la Pareja</h3>
-                    
+
                     <div class="mb-3">
                         <label for="nombreApellido2" class="form-label">Apellido y Nombre:</label>
                         <input type="text" class="form-control" id="nombreApellido2" name="nombreApellido2" required>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="fechaNacimiento2" class="form-label">Fecha de Nacimiento:</label>
-                            <input type="date" class="form-control" id="fechaNacimiento2" name="fechaNacimiento2" required onchange="calcularEdad(2)">
+                            <input type="date" class="form-control" id="fechaNacimiento2" name="fechaNacimiento2"
+                                required onchange="calcularEdad(2)">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="edad2" class="form-label">Edad:</label>
                             <input type="number" class="form-control" id="edad2" name="edad2" readonly required>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="dni2" class="form-label">DNI:</label>
-                        <input type="text" class="form-control" id="dni2" name="dni2" required pattern="[0-9]{7,8}" title="Por favor ingrese un DNI válido (7-8 dígitos numéricos)">
+                        <input type="text" class="form-control" id="dni2" name="dni2" required pattern="[0-9]{7,8}"
+                            title="Por favor ingrese un DNI válido (7-8 dígitos numéricos)">
                         <div class="validation-message">Ingrese sólo números, sin puntos ni espacios</div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="telefono2" class="form-label">Teléfono:</label>
-                            <input type="tel" class="form-control" id="telefono2" name="telefono2" required pattern="[0-9]{10,15}" title="Por favor ingrese un número telefónico válido" placeholder="Código de área + número (solo números)">
-                            <div class="validation-message">Ingrese el código de área y número sin espacios, guiones ni paréntesis</div>
+                            <input type="tel" class="form-control" id="telefono2" name="telefono2" required
+                                pattern="[0-9]{10,15}" title="Por favor ingrese un número telefónico válido"
+                                placeholder="Código de área + número (solo números)">
+                            <div class="validation-message">Ingrese el código de área y número sin espacios, guiones ni
+                                paréntesis</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email2" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email2" name="email2" required placeholder="nombre@ejemplo.com">
-                            <div class="validation-message">Por favor verifique que el email sea correcto, es nuestra vía de contacto</div>
+                            <input type="email" class="form-control" id="email2" name="email2" required
+                                placeholder="nombre@ejemplo.com">
+                            <div class="validation-message">Por favor verifique que el email sea correcto, es nuestra
+                                vía de contacto</div>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="ocupacion2" class="form-label">Ocupación:</label>
                         <input type="text" class="form-control" id="ocupacion2" name="ocupacion2" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">¿Asiste a la Iglesia de la Alameda?</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="asisteSi2" name="asiste2" value="Si" required onchange="toggleIglesia(2)">
+                            <input class="form-check-input" type="radio" id="asisteSi2" name="asiste2" value="Si"
+                                required onchange="toggleIglesia(2)">
                             <label class="form-check-label" for="asisteSi2">Sí</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="asisteNo2" name="asiste2" value="No" required onchange="toggleIglesia(2)">
+                            <input class="form-check-input" type="radio" id="asisteNo2" name="asiste2" value="No"
+                                required onchange="toggleIglesia(2)">
                             <label class="form-check-label" for="asisteNo2">No</label>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3" id="otraIglesiaGroup2" style="display: none;">
                         <label for="otraIglesia2" class="form-label">¿A qué iglesia asiste?</label>
                         <input type="text" class="form-control" id="otraIglesia2" name="otraIglesia2">
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-section">
                 <h2 class="form-title">Detalles de la Ceremonia</h2>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="fechaCeremonia" class="form-label">Fecha de la Ceremonia:</label>
-                        <input type="date" class="form-control" id="fechaCeremonia" name="fechaCeremonia" required onchange="verificarFecha()">
+                        <input type="date" class="form-control" id="fechaCeremonia" name="fechaCeremonia" required
+                            onchange="verificarFecha()">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="horaCeremonia" class="form-label">Hora de la Ceremonia:</label>
-                        <input type="time" class="form-control" id="horaCeremonia" name="horaCeremonia" required onchange="verificarHorario()">
-                        <div class="time-warning" id="timeWarning">Advertencia: Los viernes, sábados y domingos solo se puede realizar la ceremonia hasta las 18:00hs en el Salón 2020.</div>
+                        <input type="time" class="form-control" id="horaCeremonia" name="horaCeremonia" required
+                            onchange="verificarHorario()">
+                        <div class="time-warning" id="timeWarning">Advertencia: Los viernes, sábados y domingos solo se
+                            puede realizar la ceremonia hasta las 18:00hs en el Salón 2020.</div>
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     <label class="form-label">Lugar de la Ceremonia:</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="lugarSalon" name="lugar" value="Salon2020" required onchange="toggleLugar()">
+                        <input class="form-check-input" type="radio" id="lugarSalon" name="lugar" value="Salon2020"
+                            required onchange="toggleLugar()">
                         <label class="form-check-label" for="lugarSalon">Salón 2020</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="lugarOtro" name="lugar" value="Otro" required onchange="toggleLugar()">
+                        <input class="form-check-input" type="radio" id="lugarOtro" name="lugar" value="Otro" required
+                            onchange="toggleLugar()">
                         <label class="form-check-label" for="lugarOtro">Otro lugar</label>
                     </div>
                 </div>
-                
+
                 <div class="mb-3 d-none" id="otraDireccionGroup">
                     <label for="otraDireccion" class="form-label">Dirección completa:</label>
                     <textarea class="form-control" id="otraDireccion" name="otraDireccion" rows="3"></textarea>
                 </div>
-                
+
                 <div class="highlight">
-                    <strong>Importante:</strong> Una semana antes de la ceremonia se realizará una charla prematrimonial obligatoria. El horario y lugar serán coordinados por correo electrónico y/o teléfono.
+                    <strong>Importante:</strong> Una semana antes de la ceremonia se realizará una charla prematrimonial
+                    obligatoria. El horario y lugar serán coordinados por correo electrónico y/o teléfono.
                 </div>
-                
+
                 <div class="mb-3 mt-4">
                     <label for="observaciones" class="form-label">Observaciones o comentarios adicionales:</label>
-                    <textarea class="form-control" id="observaciones" name="observaciones" rows="4" placeholder="Si tiene alguna consulta o necesita especificar detalles adicionales, por favor escríbalas aquí."></textarea>
+                    <textarea class="form-control" id="observaciones" name="observaciones" rows="4"
+                        placeholder="Si tiene alguna consulta o necesita especificar detalles adicionales, por favor escríbalas aquí."></textarea>
                 </div>
             </div>
-            
+
             <div class="form-section">
                 <h2 class="form-title">Términos y Condiciones</h2>
                 <div class="conditions">
                     <h3>Condiciones para la Ceremonia de Matrimonio</h3>
                     <p>1. La solicitud debe realizarse con al menos 60 días de anticipación a la fecha deseada.</p>
-                    <p>2. Los contrayentes deben asistir a las clases prematrimoniales obligatorias que se realizarán una semana antes de la ceremonia (el horario y lugar se coordinarán oportunamente).</p>
+                    <p>2. Los contrayentes deben asistir a las clases prematrimoniales obligatorias que se realizarán
+                        una semana antes de la ceremonia (el horario y lugar se coordinarán oportunamente).</p>
                     <p>3. Se debe realizar un depósito del 30% para reservar la fecha, el cual no es reembolsable.</p>
-                    <p>4. Para ceremonias en el Salón 2020, tenga en cuenta que los días viernes, sábados y domingos solo puede utilizarse hasta las 18:00hs.</p>
-                    <p>5. La decoración del lugar debe coordinarse con anticipación y respetar las normativas del espacio.</p>
-                    <p>6. La Iglesia de la Alameda se reserva el derecho de rechazar cualquier solicitud que no cumpla con sus principios y valores.</p>
-                    <p>7. Para cambios de fecha o cancelaciones, debe notificarse con al menos 30 días de anticipación.</p>
+                    <p>4. Para ceremonias en el Salón 2020, tenga en cuenta que los días viernes, sábados y domingos
+                        solo puede utilizarse hasta las 18:00hs.</p>
+                    <p>5. La decoración del lugar debe coordinarse con anticipación y respetar las normativas del
+                        espacio.</p>
+                    <p>6. La Iglesia de la Alameda se reserva el derecho de rechazar cualquier solicitud que no cumpla
+                        con sus principios y valores.</p>
+                    <p>7. Para cambios de fecha o cancelaciones, debe notificarse con al menos 30 días de anticipación.
+                    </p>
                     <p>8. Los documentos legales requeridos deben presentarse con al menos 15 días de anticipación.</p>
-                    <p>9. La música y el programa de la ceremonia deben ser aprobados por el pastor o responsable de la ceremonia.</p>
-                    <p>10. Al enviar este formulario, usted acepta que sus datos sean almacenados en nuestra base de datos para los fines organizativos de la ceremonia.</p>
+                    <p>9. La música y el programa de la ceremonia deben ser aprobados por el pastor o responsable de la
+                        ceremonia.</p>
+                    <p>10. Al enviar este formulario, usted acepta que sus datos sean almacenados en nuestra base de
+                        datos para los fines organizativos de la ceremonia.</p>
                 </div>
-                
+
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="aceptaCondiciones" name="aceptaCondiciones" required>
-                    <label class="form-check-label" for="aceptaCondiciones">He leído y acepto las condiciones para la ceremonia de matrimonio</label>
+                    <input class="form-check-input" type="checkbox" id="aceptaCondiciones" name="aceptaCondiciones"
+                        required>
+                    <label class="form-check-label" for="aceptaCondiciones">He leído y acepto las condiciones para la
+                        ceremonia de matrimonio</label>
                 </div>
             </div>
-            
+
             <div class="loading" id="loadingIndicator">
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Enviando...</span>
                 </div>
                 <p>Enviando solicitud, por favor espere...</p>
             </div>
-            
+
             <div class="success-message" id="successMessage">
                 <h4>¡Solicitud enviada con éxito!</h4>
                 <p>Nos pondremos en contacto contigo pronto para coordinar la charla prematrimonial.</p>
             </div>
-            
+
             <div class="error-message" id="errorMessage">
                 <h4>Error al enviar la solicitud</h4>
-                <p>Ha ocurrido un problema al procesar tu solicitud. Por favor, intenta nuevamente o contáctanos directamente.</p>
+                <p>Ha ocurrido un problema al procesar tu solicitud. Por favor, intenta nuevamente o contáctanos
+                    directamente.</p>
             </div>
-            
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Enviar Solicitud</button>
             </div>
@@ -325,230 +267,8 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Función para calcular la edad automáticamente
-        function calcularEdad(persona) {
-            const fechaNacimiento = document.getElementById('fechaNacimiento' + persona).value;
-            if (fechaNacimiento) {
-                const hoy = new Date();
-                const fechaNac = new Date(fechaNacimiento);
-                let edad = hoy.getFullYear() - fechaNac.getFullYear();
-                const m = hoy.getMonth() - fechaNac.getMonth();
-                
-                if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
-                    edad--;
-                }
-                
-                document.getElementById('edad' + persona).value = edad;
-            }
-        }
+    <script src="./js/script.js"></script>
 
-        // Función para mostrar/ocultar el campo de otra iglesia
-        function toggleIglesia(persona) {
-            const asisteNo = document.getElementById('asisteNo' + persona).checked;
-            document.getElementById('otraIglesiaGroup' + persona).style.display = asisteNo ? 'block' : 'none';
-            
-            // Si no asiste, hacemos que el campo sea requerido
-            if (asisteNo) {
-                document.getElementById('otraIglesia' + persona).setAttribute('required', '');
-            } else {
-                document.getElementById('otraIglesia' + persona).removeAttribute('required');
-            }
-        }
-
-        // Función para mostrar/ocultar el campo de otra dirección
-        function toggleLugar() {
-            const lugarOtro = document.getElementById('lugarOtro').checked;
-            document.getElementById('otraDireccionGroup').classList.toggle('d-none', !lugarOtro);
-            
-            // Si es otro lugar, hacemos que el campo sea requerido
-            if (lugarOtro) {
-                document.getElementById('otraDireccion').setAttribute('required', '');
-            } else {
-                document.getElementById('otraDireccion').removeAttribute('required');
-            }
-            
-            // Si cambiamos de lugar, verificamos nuevamente las restricciones de horario
-            verificarFechaYHora();
-        }
-
-        // Función para verificar el horario en el salón 2020
-        function verificarHorario() {
-            verificarFechaYHora();
-        }
-
-        // Función para verificar la fecha
-        function verificarFecha() {
-            verificarFechaYHora();
-        }
-
-        // Función para verificar fecha y hora combinadas
-        function verificarFechaYHora() {
-            const fechaCeremonia = document.getElementById('fechaCeremonia').value;
-            const horaCeremonia = document.getElementById('horaCeremonia').value;
-            const lugarSalon = document.getElementById('lugarSalon').checked;
-            const timeWarning = document.getElementById('timeWarning');
-            
-            if (fechaCeremonia && horaCeremonia && lugarSalon) {
-                const fecha = new Date(fechaCeremonia);
-                const dia = fecha.getDay(); // 0 = domingo, 1 = lunes, ..., 6 = sábado
-                const hora = parseInt(horaCeremonia.split(':')[0]);
-                const minutos = parseInt(horaCeremonia.split(':')[1]);
-                
-                // Si es viernes (5), sábado (6) o domingo (0) y la hora es mayor o igual a 18:00
-                const esFinDeSemana = (dia === 5 || dia === 6 || dia === 0);
-                const horaLimite = (hora > 18 || (hora === 18 && minutos > 0));
-                
-                if (esFinDeSemana && horaLimite) {
-                    timeWarning.style.display = 'block';
-                } else {
-                    timeWarning.style.display = 'none';
-                }
-            } else {
-                timeWarning.style.display = 'none';
-            }
-        }
-
-        // Función para enviar datos a Google Sheets
-        async function enviarDatosAGoogleSheets(formData) {
-            // URL del script web desplegado de Google Apps Script
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyk5R0A-UMdM7AX7MhrMmuD0RRz-T_fi9y-AwlVO-uc4v_XUdG0DEgyAWB2tesNU1Gp/exec'; // Reemplazar con la URL real del script desplegado
-            
-            try {
-                // Convertir el FormData a un objeto JSON
-                const object = {};
-                formData.forEach((value, key) => {
-                    // Para manejar los valores de radio button correctamente
-                    if (key === 'asiste1' || key === 'asiste2' || key === 'lugar') {
-                        object[key] = value;
-                    } else {
-                        // Para los demás campos, simplemente asignar el valor
-                        object[key] = value;
-                    }
-                });
-                
-                // Agregar marca de tiempo
-                object['timestamp'] = new Date().toISOString();
-                
-                // Enviar datos a Google Sheets
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(object)
-                });
-                
-                if (response.ok) {
-                    return true;
-                } else {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-            } catch (error) {
-                console.error('Error al enviar datos:', error);
-                return false;
-            }
-        }
-
-        // Validación de formulario antes de enviar
-        document.getElementById('matrimonioForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Primero validamos el formulario usando la API de validación de HTML5
-            if (!this.checkValidity()) {
-                e.stopPropagation();
-                
-                // Resaltar campos inválidos usando Bootstrap
-                Array.from(this.elements).forEach(input => {
-                    if (!input.checkValidity()) {
-                        input.classList.add('is-invalid');
-                        
-                        // Mostrar mensaje específico si está disponible
-                        if (input.title) {
-                            let errorMsg = document.createElement('div');
-                            errorMsg.className = 'invalid-feedback';
-                            errorMsg.textContent = input.title;
-                            
-                            // Eliminar mensajes de error previos
-                            const prevErrors = input.parentNode.querySelectorAll('.invalid-feedback');
-                            prevErrors.forEach(err => err.remove());
-                            
-                            input.parentNode.appendChild(errorMsg);
-                        }
-                    }
-                });
-                
-                // Hacer scroll al primer campo inválido
-                const invalidInputs = this.querySelectorAll('.is-invalid');
-                if (invalidInputs.length > 0) {
-                    invalidInputs[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-                
-                return;
-            }
-            
-            // Validar restricciones adicionales (horario para el Salón 2020)
-            const fechaCeremonia = document.getElementById('fechaCeremonia').value;
-            const horaCeremonia = document.getElementById('horaCeremonia').value;
-            const lugarSalon = document.getElementById('lugarSalon').checked;
-            
-            if (fechaCeremonia && horaCeremonia && lugarSalon) {
-                const fecha = new Date(fechaCeremonia);
-                const dia = fecha.getDay();
-                const hora = parseInt(horaCeremonia.split(':')[0]);
-                const minutos = parseInt(horaCeremonia.split(':')[1]);
-                
-                const esFinDeSemana = (dia === 5 || dia === 6 || dia === 0);
-                const horaLimite = (hora > 18 || (hora === 18 && minutos > 0));
-                
-                if (esFinDeSemana && horaLimite) {
-                    if (!confirm('Los viernes, sábados y domingos la ceremonia en el Salón 2020 debe finalizar antes de las 18:00hs. ¿Desea continuar de todas formas?')) {
-                        document.getElementById('horaCeremonia').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        return;
-                    }
-                }
-            }
-            
-            // Mostrar indicador de carga
-            document.getElementById('loadingIndicator').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            
-            // Recoger los datos del formulario
-            const formData = new FormData(this);
-            
-            // Enviar datos a Google Sheets
-            const exito = await enviarDatosAGoogleSheets(formData);
-            
-            // Ocultar indicador de carga
-            document.getElementById('loadingIndicator').style.display = 'none';
-            
-            if (exito) {
-                // Mostrar mensaje de éxito
-                document.getElementById('successMessage').style.display = 'block';
-                // Resetear el formulario
-                this.reset();
-                // Scroll al mensaje de éxito
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                // Mostrar mensaje de error
-                document.getElementById('errorMessage').style.display = 'block';
-                // Scroll al mensaje de error
-                document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-//Nada
-        // Para que los campos inválidos vuelvan a su estado normal al editarlos
-        document.querySelectorAll('input, textarea, select').forEach(element => {
-            element.addEventListener('input', function() {
-                this.classList.remove('is-invalid');
-                const errorMsg = this.parentNode.querySelector('.invalid-feedback');
-                if (errorMsg) {
-                    errorMsg.remove();
-                }
-            });
-        });
-    </script>
 </body>
+
 </html>
