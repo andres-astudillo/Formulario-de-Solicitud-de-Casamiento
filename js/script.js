@@ -1,5 +1,5 @@
- // Función para calcular la edad automáticamente
- function calcularEdad(persona) {
+// Función para calcular la edad automáticamente
+function calcularEdad(persona) {
     const fechaNacimiento = document.getElementById('fechaNacimiento' + persona).value;
     if (fechaNacimiento) {
         const hoy = new Date();
@@ -81,20 +81,20 @@ function verificarFechaYHora() {
     }
 }
 
-// Función para enviar datos a Google Sheets
+// Función actualizada para enviar datos a Google Sheets usando Google Apps Script
 async function enviarDatosAGoogleSheets(formData) {
     // URL del script web desplegado de Google Apps Script
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyk5R0A-UMdM7AX7MhrMmuD0RRz-T_fi9y-AwlVO-uc4v_XUdG0DEgyAWB2tesNU1Gp/exec'; // Reemplazar con la URL real del script desplegado
+    // IMPORTANTE: Reemplazar con la URL real obtenida al implementar el Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwznpk74UQxg_aa_gVbBw8x60FjlkU3WyVcBNKmiGMbJG4-HpOXczMu6OH6aJTLRo4/exec';
     
     try {
         // Convertir el FormData a un objeto JSON
         const object = {};
         formData.forEach((value, key) => {
-            // Para manejar los valores de radio button correctamente
-            if (key === 'asiste1' || key === 'asiste2' || key === 'lugar') {
-                object[key] = value;
+            // Para manejar campos especiales como checkboxes
+            if (key === 'aceptaCondiciones') {
+                object[key] = value === 'on';
             } else {
-                // Para los demás campos, simplemente asignar el valor
                 object[key] = value;
             }
         });
@@ -102,7 +102,10 @@ async function enviarDatosAGoogleSheets(formData) {
         // Agregar marca de tiempo
         object['timestamp'] = new Date().toISOString();
         
-        // Enviar datos a Google Sheets
+        // Mostrar mensaje de depuración en la consola (puedes quitar esto en producción)
+        console.log('Enviando datos:', object);
+        
+        // Enviar datos a Google Sheets mediante el Apps Script
         const response = await fetch(scriptURL, {
             method: 'POST',
             headers: {
@@ -111,10 +114,15 @@ async function enviarDatosAGoogleSheets(formData) {
             body: JSON.stringify(object)
         });
         
-        if (response.ok) {
+        // Verificar si la respuesta fue exitosa
+        const jsonResponse = await response.json();
+        
+        if (jsonResponse.result === 'success') {
+            console.log('Datos enviados exitosamente:', jsonResponse);
             return true;
         } else {
-            throw new Error('Error en la respuesta del servidor');
+            console.error('Error desde el servidor:', jsonResponse);
+            return false;
         }
     } catch (error) {
         console.error('Error al enviar datos:', error);
@@ -209,7 +217,7 @@ document.getElementById('matrimonioForm').addEventListener('submit', async funct
         document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 });
-//Nada
+
 // Para que los campos inválidos vuelvan a su estado normal al editarlos
 document.querySelectorAll('input, textarea, select').forEach(element => {
     element.addEventListener('input', function() {
