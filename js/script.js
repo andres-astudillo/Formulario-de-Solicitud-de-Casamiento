@@ -85,7 +85,7 @@ function verificarFechaYHora() {
 async function enviarDatosAGoogleSheets(formData) {
     // URL del script web desplegado de Google Apps Script
     // IMPORTANTE: Reemplazar con la URL real obtenida al implementar el Apps Script
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwznpk74UQxg_aa_gVbBw8x60FjlkU3WyVcBNKmiGMbJG4-HpOXczMu6OH6aJTLRo4/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyrRs5qSy8BR7JRLpyAjMM5FZrw7L2vyGzA481VzklH6IA56X3VYZdV2AFH3T_IGqg/exec';
     
     try {
         // Convertir el FormData a un objeto JSON
