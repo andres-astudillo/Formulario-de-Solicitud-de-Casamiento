@@ -81,49 +81,54 @@ function verificarFechaYHora() {
     }
 }
 
-// Función actualizada para enviar datos a Google Sheets usando Google Apps Script
 async function enviarDatosAGoogleSheets(formData) {
     // URL del script web desplegado de Google Apps Script
-    // IMPORTANTE: Reemplazar con la URL real obtenida al implementar el Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyrRs5qSy8BR7JRLpyAjMM5FZrw7L2vyGzA481VzklH6IA56X3VYZdV2AFH3T_IGqg/exec';
     
     try {
-        // Convertir el FormData a un objeto JSON
+        // Convertir el FormData a un objeto
         const object = {};
         formData.forEach((value, key) => {
-            // Para manejar campos especiales como checkboxes
-            if (key === 'aceptaCondiciones') {
-                object[key] = value === 'on';
-            } else {
-                object[key] = value;
+            object[key] = value;
+        });
+        
+        // Crear un formulario oculto y enviarlo
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = scriptURL;
+        form.target = 'hidden-iframe';
+        form.style.display = 'none';
+        
+        // Crear un iframe oculto para recibir la respuesta
+        const iframe = document.createElement('iframe');
+        iframe.name = 'hidden-iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        
+        // Añadir cada campo del formulario como un input hidden
+        for(const key in object) {
+            if(object.hasOwnProperty(key)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = object[key];
+                form.appendChild(input);
             }
-        });
-        
-        // Agregar marca de tiempo
-        object['timestamp'] = new Date().toISOString();
-        
-        // Mostrar mensaje de depuración en la consola (puedes quitar esto en producción)
-        console.log('Enviando datos:', object);
-        
-        // Enviar datos a Google Sheets mediante el Apps Script
-        const response = await fetch(scriptURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(object)
-        });
-        
-        // Verificar si la respuesta fue exitosa
-        const jsonResponse = await response.json();
-        
-        if (jsonResponse.result === 'success') {
-            console.log('Datos enviados exitosamente:', jsonResponse);
-            return true;
-        } else {
-            console.error('Error desde el servidor:', jsonResponse);
-            return false;
         }
+        
+        // Añadir el formulario al DOM y enviarlo
+        document.body.appendChild(form);
+        form.submit();
+        
+        // Manejar la respuesta con un temporizador (no podemos acceder directamente por CORS)
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                // Eliminar el form e iframe
+                document.body.removeChild(form);
+                document.body.removeChild(iframe);
+                resolve(true); // Asumimos éxito después de enviar
+            }, 2000);
+        });
     } catch (error) {
         console.error('Error al enviar datos:', error);
         return false;
